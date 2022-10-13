@@ -2,6 +2,7 @@ package com.study.board.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -14,22 +15,26 @@ public class BoardController {
 	@Autowired
 	private BoardServices boardService;
 	
-	@GetMapping("/board/write") //localhost:8080/board/write
+	@GetMapping("/board/write") // /board/write
 	public String boardWriteForms() {
 		return "boardwrite";
 	}
 	
-	@PostMapping("/board/writedo")
+	@PostMapping("/board/writedo") 
 	public String boardWriteDo(Board board) {
-		
-//		board.setId(2);
-		System.out.println(board.getId());
-		System.out.println(board.getContent());
-		System.out.println(board.getTitle());
-
 		boardService.write(board);
-
-		
 		return "";
+	}
+	
+	@GetMapping("/board/list")
+	public String boardList(Model model) {
+		model.addAttribute("list", boardService.boardList());
+		return "boardlist";
+	}
+	
+	@GetMapping("/board/view") // /board/view/id=1
+	public String boardView(Model model, Integer id) {
+		model.addAttribute("board", boardService.boardView(id));
+		return "boardview";
 	}
 }
