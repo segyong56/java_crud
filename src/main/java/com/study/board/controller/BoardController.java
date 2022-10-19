@@ -1,15 +1,10 @@
 package com.study.board.controller;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.CrossOrigin;
-=======
->>>>>>> ee4ff7a7a7eb5cf29488b8bad4c7de26c20141fb
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,13 +26,13 @@ public class BoardController {
 		return "boardwrite";
 	}
 	
-<<<<<<< HEAD
+
 	@PostMapping("/board/writedo")
 	public void boardWriteDo(@RequestBody Board board) {
-		System.out.println(board.toString());
+
 		boardService.write(board);		
-	
 	}
+	
 	
 	@GetMapping("/board/list")
 	public List<Board> boardList() {
@@ -67,34 +62,16 @@ public class BoardController {
 	}
 	
 	@PostMapping("/board/update/{id}")
-	public void boardUpdate(@PathVariable("id") Integer id, Board board) throws Exception {
-		
+	public void boardUpdate(@PathVariable("id") Integer id, @RequestBody Board board) throws Exception {
+		System.out.println(board.toString());
 		Board boardTemp = boardService.boardView(id);
 		boardTemp.setTitle(board.getTitle());
 		boardTemp.setContent(board.getContent());
 		
 		boardService.write(boardTemp);
+	
 		
 	}
 	
  } 
-=======
-	@PostMapping("/board/writedo") 
-	public String boardWriteDo(Board board) {
-		boardService.write(board);
-		return "";
-	}
-	
-	@GetMapping("/board/list")
-	public String boardList(Model model) {
-		model.addAttribute("list", boardService.boardList());
-		return "boardlist";
-	}
-	
-	@GetMapping("/board/view") // /board/view/id=1
-	public String boardView(Model model, Integer id) {
-		model.addAttribute("board", boardService.boardView(id));
-		return "boardview";
-	}
-}
->>>>>>> ee4ff7a7a7eb5cf29488b8bad4c7de26c20141fb
+
